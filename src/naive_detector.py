@@ -182,14 +182,14 @@ class CenterNetDetectorWrapper(ObjectDetector):
                 score = out[4]
                 if score > self.detector.opt.vis_thresh:
                     label = self.classes[label_class - 1]
-                    x_coord, y_coord, width, height = bbox
-                    x1 = max(0, np.floor(x_coord + 0.5).astype(int))
-                    y1 = max(0, np.floor(y_coord + 0.5).astype(int))
+                    x1, y1, x2, y2 = bbox
+                    x1 = max(0, np.floor(x1 + 0.5).astype(int))
+                    y1 = max(0, np.floor(y1 + 0.5).astype(int))
                     x2 = min(
-                        image_raw_width, np.floor(x_coord + width + 0.5).astype(int)
+                        image_raw_width, np.floor(x2 + 0.5).astype(int)
                     )
                     y2 = min(
-                        image_raw_height, np.floor(y_coord + height + 0.5).astype(int)
+                        image_raw_height, np.floor(y2 + 0.5).astype(int)
                     )
 
                     # handle the edge case of padding space
